@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         }
         
 
-        adapter = new ContactAdapter(list);
+        adapter = new ContactAdapter(MainActivity.this, list);
         recyclerView.setAdapter(adapter);
         
         Log.e("Conatcts",""+stringBuilder);

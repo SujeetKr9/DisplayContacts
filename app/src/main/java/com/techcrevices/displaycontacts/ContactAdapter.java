@@ -1,5 +1,7 @@
 package com.techcrevices.displaycontacts;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,14 +10,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyContactAdapter> {
 
-    List<ContactModel> contactModels;
+    //ContactAdapter
 
-    public ContactAdapter(List<ContactModel> contactModels) {
+    List<ContactModel> contactModels;
+    Context context;
+
+    public ContactAdapter(Context context, List<ContactModel> contactModels) {
         this.contactModels = contactModels;
+        this.context = context;
     }
 
     @NonNull
@@ -27,11 +34,25 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyContac
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyContactAdapter holder, int position) {
+    public void onBindViewHolder(@NonNull MyContactAdapter holder, final int position) {
 
-        ContactModel contactModel = contactModels.get(position);
+        final ContactModel contactModel = contactModels.get(position);
         holder.nameTv.setText(contactModel.getName());
         holder.mobileTv.setText(contactModel.getMobile());
+
+        holder.mobileTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context,Main2Activity.class);
+                i.putExtra("listitem" , (Serializable) contactModels);
+                i.putExtra("position", String.valueOf(position));
+                context.startActivity(i);
+
+
+
+
+            }
+        });
 
     }
 

@@ -1,6 +1,8 @@
 package com.techcrevices.displaycontacts;
 
-public class ContactModel {
+import java.io.Serializable;
+
+public class ContactModel implements Serializable {
     String name;
     String mobile;
 
